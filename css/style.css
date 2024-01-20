@@ -86,6 +86,7 @@ form{
 }
 
 #show-more-button{
+    color: white;
     background-color: #008cba;
     font-size: 18px;
     border: none;
