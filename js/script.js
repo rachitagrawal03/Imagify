@@ -13,6 +13,7 @@ async function searchImages(){
     const url = `https://api.unsplash.com/search/photos?page=${page}&query=${inputData}&client_id=${accessKey}`;
     const response = await fetch(url);
     const data = await response.json()
+    console.log(data);
 
     const results = data.results;
 
@@ -50,4 +51,21 @@ formE1.addEventListener("submit", (event) =>{
 
 showMore.addEventListener("click", () =>{
     searchImages();   
+})
+
+let url = "https://script.google.com/macros/s/AKfycbzJC6rN6N0GEfJ-w8AzHUPCpangOe-i8Y2hPEGHyPG2MJolPGrHESkQQF2198_XUkpbMA/exec";
+
+let searchQuery = document.querySelector('#searchQuery');
+
+searchQuery.addEventListener("submit", (e)=> {
+    e.target.searchButton.innerHTML = "Searching....";
+    let myFormData = new FormData(searchQuery);
+    fetch(url, {
+        method: "POST",
+        body: myFormData
+    }).then((res)=> res.text())
+    .then((finalRes)=> {
+        e.target.searchButton.innerHTML = "Search";
+    })
+    e.preventDefault();
 })
