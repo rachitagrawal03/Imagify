@@ -1,0 +1,17 @@
+1. query save feature
+2. sign up collection using newsletter popup
+3. email notifications update on each signup
+4. live chat support
+5. searches using categories
+6. social sharing buttons integrations so that user can share the image on any other platform 
+7. a button to download the image
+8. easily accessible, hosted on github
+9. dark mode, light mode
+10. connect text to image
+
+
+- add header
+- add categories so that user can select the category
+- add download image option
+- add landscape or vertical image filter options
+- reduce the caption

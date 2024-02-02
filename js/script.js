@@ -10,7 +10,7 @@ let page=1;
 
 async function searchImages(){
     inputData=inputE1.value;
-    const url = `https://api.unsplash.com/search/photos?page=${page}&query=${inputData}&client_id=${accessKey}`;
+    const url = `https://api.unsplash.com/search/photos?page=${page}&query=${inputData}&client_id=${accessKey}&per_page=12`;
     const response = await fetch(url);
     const data = await response.json()
     console.log(data);
@@ -32,6 +32,9 @@ async function searchImages(){
         imageLink.href = result.links.html;
         imageLink.target = "_blank";
         imageLink.textContent = result.alt_description;
+
+        imageLink.appendChild(image);
+
         imageWrapper.appendChild(image);
         imageWrapper.appendChild(imageLink);
         searchResults.appendChild(imageWrapper);
@@ -58,7 +61,8 @@ let url = "https://script.google.com/macros/s/AKfycbzJC6rN6N0GEfJ-w8AzHUPCpangOe
 let searchQuery = document.querySelector('#searchQuery');
 
 searchQuery.addEventListener("submit", (e)=> {
-    e.target.searchButton.innerHTML = "Searching....";
+    // e.target.searchButton.innerHTML = "Searching....";
+    e.preventDefault();
     let myFormData = new FormData(searchQuery);
     fetch(url, {
         method: "POST",
@@ -67,5 +71,4 @@ searchQuery.addEventListener("submit", (e)=> {
     .then((finalRes)=> {
         e.target.searchButton.innerHTML = "Search";
     })
-    e.preventDefault();
 })
