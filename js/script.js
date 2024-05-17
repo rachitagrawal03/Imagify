@@ -16,6 +16,7 @@ async function searchImages(){
     console.log(data);
 
     const results = data.results;
+    console.log(results);
 
     if(page==1)
     {
@@ -29,15 +30,25 @@ async function searchImages(){
         image.src = result.urls.small;
         image.alt = result.alt_description;
         const imageLink= document.createElement('a');
-        imageLink.href = result.links.html;
+        // imageLink.href = result.links.html;
+        imageLink.href = result.urls.small;
         imageLink.target = "_blank";
         imageLink.textContent = result.alt_description;
+        
+        const button = document.createElement('button');
+        button.type = "button";
+
+        // console.log(imageLink.href);
 
         imageLink.appendChild(image);
 
         imageWrapper.appendChild(image);
         imageWrapper.appendChild(imageLink);
         searchResults.appendChild(imageWrapper);
+        
+        image.addEventListener("click", () => {
+            downloadImg(imageLink.href);
+        })
     })
     page++;
     if(page>1)
@@ -72,3 +83,16 @@ searchQuery.addEventListener("submit", (e)=> {
         e.target.searchButton.innerHTML = "Search";
     })
 })
+
+    const downloadImg= (imgURL) => {
+        //Converting received img to blob, creating its download link, & downloading it
+        
+        fetch(imgURL).then(res=> res.blob()).then(file => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(file);
+            console.log(a.href);
+            a.download = new Date().getTime();
+            console.log(a.download);
+            a.click();
+        }).catch(()=> alert("failed to download image!"))
+    }   
